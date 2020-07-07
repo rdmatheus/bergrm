@@ -23,7 +23,7 @@
 #' parameterized in terms of the mean and the dispersion index. This new
 #' parameterization was proposed by Bourguignon, M. & Medeiros, R. (2020).
 #'
-#' @references Bourguignon, M. & Weiß, C. (2017). An INAR(1) process for modeling count
+#' @references Bourguignon, M. & Weiss, C. (2017). An INAR(1) process for modeling count
 #' time series with equidispersion, underdispersion and overdispersion. Test, 26, 847--868.
 #'
 #' @references Bourguignon, M. & Medeiros, R. (2020). A simple and useful regression model for fitting count data

@@ -69,7 +69,7 @@ legend(13,0.32,legend =c(expression(mu==2.3),
 
 }
 \references{
-Bourguignon, M. & Weiß, C. (2017). An INAR(1) process for modeling count
+Bourguignon, M. & Weiss, C. (2017). An INAR(1) process for modeling count
 time series with equidispersion, underdispersion and overdispersion. Test, 26, 847--868.
 
 Bourguignon, M. & Medeiros, R. (2020). A simple and useful regression model for fitting count data
