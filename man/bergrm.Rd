@@ -23,6 +23,8 @@ berg_fit(y, X, Z = NULL, link = "log", link.phi = "log",
 \item{...}{arguments passed to \code{berg_control}}
 
 \item{y}{a numeric vector of the response variable, in counts. This argument is used in the \code{berg_fit} function to get the estimates and required quantities that will return in the object resulting from the \code{bergrm} function.}
+
+\item{X, Z}{model matrices associated with the mean and the dispersion parameter, respectively, which are used in the \code{fit_sdl} function.}
 }
 \value{
 The \code{bergrm} function returns an object of class "bergrm", which consists of a list with the following components.
@@ -44,7 +46,7 @@ The \code{bergrm} function returns an object of class "bergrm", which consists o
   \item{linear.predictors}{a list containing the elements "eta1" and
         "eta2" that consist of the fitted linear predictor for the mean and the dispersion index.}
   \item{response}{the vector of the response.}
-  \item{Z, X}{model matrices associated with the mean and the dispersion parameter, respectively.}
+  \item{X, Z}{model matrices associated with the mean and the dispersion parameter, respectively.}
   \item{call}{the function call.}
   \item{formula}{the formula used to specify the model in \code{bergrm}.}
  }

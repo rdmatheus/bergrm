@@ -10,6 +10,7 @@
 #' @param data an optional data frame containing the variables in the formula. By default the variables are taken from environment(formula).
 #' @param link,link.phi character; specification of the link function in the mean and in the dispersion index. The links \code{"log"} (default) \code{"sqrt"} and \code{"identity"} can be used.
 #' @param y a numeric vector of the response variable, in counts. This argument is used in the \code{berg_fit} function to get the estimates and required quantities that will return in the object resulting from the \code{bergrm} function.
+#' @param X,Z model matrices associated with the mean and the dispersion parameter, respectively, which are used in the \code{fit_sdl} function.
 #' @param control a list of control arguments specified via \code{berg_control}.
 #' @param ... arguments passed to \code{berg_control}
 #'
@@ -32,7 +33,7 @@
 #'   \item{linear.predictors}{a list containing the elements "eta1" and
 #'         "eta2" that consist of the fitted linear predictor for the mean and the dispersion index.}
 #'   \item{response}{the vector of the response.}
-#'   \item{Z, X}{model matrices associated with the mean and the dispersion parameter, respectively.}
+#'   \item{X, Z}{model matrices associated with the mean and the dispersion parameter, respectively.}
 #'   \item{call}{the function call.}
 #'   \item{formula}{the formula used to specify the model in \code{bergrm}.}
 #'  }
@@ -41,7 +42,7 @@
 #'
 #' @author Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>
 #'
-#' @examples
+# #' @examples
 # #' # Dataset: grazing
 # #'
 # #' attach(grazing); head(grazing)
