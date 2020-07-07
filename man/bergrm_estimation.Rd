@@ -6,7 +6,7 @@
 \title{Maximum likelihood estimates for the BerG regression model}
 \usage{
 mle_berg(y, X, Z, link = "log", link.phi = "log",
-  control = sdl_control(...), eq_constraint = NULL,
+  control = berg_control(...), eq_constraint = NULL,
   eq_constraint_jac = NULL, ...)
 }
 \arguments{
