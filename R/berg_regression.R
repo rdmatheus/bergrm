@@ -328,7 +328,7 @@ bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
 
     out$names.dispersion <- c("(Intercept)", colnames(Z)[2:k])
 
-    if (disp_test == TRUE){
+    if (disp.test == TRUE){
       start2 <- control$start2
       out$test <- round(disp_test(y, X, Z, cols = 2:k, link = link,
                                   link.phi, start = start2), 5)
