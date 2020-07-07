@@ -6,7 +6,8 @@
 \title{BerG Regression for Count Data}
 \usage{
 bergrm(formula, data, link = c("log", "sqrt", "identity"),
-  link.phi = NULL, control = berg_control(...), ...)
+  link.phi = NULL, disp.test = FALSE, control = berg_control(...),
+  ...)
 
 berg_fit(y, X, Z = NULL, link = "log", link.phi = "log",
   control = berg_control())
@@ -17,6 +18,8 @@ berg_fit(y, X, Z = NULL, link = "log", link.phi = "log",
 \item{data}{an optional data frame containing the variables in the formula. By default the variables are taken from environment(formula).}
 
 \item{link, link.phi}{character; specification of the link function in the mean and in the dispersion index. The links \code{"log"} (default) \code{"sqrt"} and \code{"identity"} can be used.}
+
+\item{disp.test}{logical, if TRUE, the function \code{bergrm} returns the test for constant dispersion.}
 
 \item{control}{a list of control arguments specified via \code{berg_control}.}
 

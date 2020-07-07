@@ -11,6 +11,7 @@
 #' @param link,link.phi character; specification of the link function in the mean and in the dispersion index. The links \code{"log"} (default) \code{"sqrt"} and \code{"identity"} can be used.
 #' @param y a numeric vector of the response variable, in counts. This argument is used in the \code{berg_fit} function to get the estimates and required quantities that will return in the object resulting from the \code{bergrm} function.
 #' @param X,Z model matrices associated with the mean and the dispersion parameter, respectively, which are used in the \code{fit_sdl} function.
+#' @param disp.test logical, if TRUE, the function \code{bergrm} returns the test for constant dispersion.
 #' @param control a list of control arguments specified via \code{berg_control}.
 #' @param ... arguments passed to \code{berg_control}
 #'
@@ -270,7 +271,8 @@ berg_control <- function(start = NULL,
 #' @rdname bergrm
 #' @export
 bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
-                   link.phi = NULL, control = berg_control(...), ...)
+                   link.phi = NULL, disp.test = FALSE,
+                   control = berg_control(...), ...)
 {
   cl <- match.call()
   if (missing(data))  data <- environment(formula)
@@ -323,15 +325,23 @@ bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
   out$names.mean <- c("(Intercept)", colnames(X)[2:p])
 
   if (k > 1) {
+
     out$names.dispersion <- c("(Intercept)", colnames(Z)[2:k])
-    #out$test = round(berg.gama.test(y, X, Z, cols.d=2:k, gama0=rep(0,k-1), link, link.phi, start=start,start2=start2),5)
+
+    if (disp_test == TRUE){
+      start2 <- control$start2
+      out$test <- round(disp_test(y, X, Z, cols = 2:k, link = link,
+                                  link.phi, start = start2), 5)
+    }
 
   }else{
+
     if (out$link.phi == "identity"){
       out$names.dispersion <- "phi"
     }else{
       out$names.dispersion <- "g(phi)"
     }
+
     out$test <- NULL
   }
 
