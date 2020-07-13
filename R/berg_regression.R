@@ -252,7 +252,7 @@ K_berg <- function(par, X, Z, link = "log", link.phi = "log"){
 ##################################################################
 berg_control <- function(start = NULL,
                          start2 = NULL,
-                         constant = 1e-8,
+                         constant = 1e-7,
                          error = 1e-8,
                          optimizer = "nloptr",
                          algorithm = "NLOPT_LD_SLSQP", ...){
@@ -331,7 +331,7 @@ bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
     if (disp.test == TRUE){
       start2 <- control$start2
       out$test <- round(disp_test(y, X, Z, cols = 2:k, link = link,
-                                  link.phi, start = start2), 5)
+                                  link.phi = link.phi, start = start2), 5)
     }
 
   }else{
