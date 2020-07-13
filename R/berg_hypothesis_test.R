@@ -87,24 +87,28 @@ disp_test <- function(y, X, Z, cols, gamma0 = NULL,
 
   # Restricted mle
   eq_constraint <- function(theta){
-    return(c(rep(0, p + k - q), rep(1, q))%*%theta -
+    return(cbind(matrix(0, q, p + k - q), diag(rep(1, q)))%*%theta -
              gamma0)
   }
 
   eq_constraint_jac <- function(theta){
-    return(c(rep(0, p + k - q), rep(1, q)))
+    return(cbind(matrix(0, q, p + k - q), diag(rep(1, q))))
   }
 
   theta_tilde <- mle_berg(y, X, Z_aux, link, link.phi, control,
                          eq_constraint = eq_constraint,
                          eq_constraint_jac = eq_constraint_jac)$est
 
+
+  #Ug2 <- U_berg(theta_tilde, y, X, Z_aux, link, link.phi)[(p + k - q + 1):(p + k)]
+  #Kg2 <- solve(K_berg(theta_tilde, X, Z_aux, link, link.phi))[(p + k - q + 1):(p + k), (p + k - q + 1):(p + k)]
+
   # Tests statistics
-  Ug2 <- U_berg(theta_tilde, y, X, Z_aux, link, link.phi)[(p + k - q + 1):(p + k)]
-  Kg2 <- solve(K_berg(theta_tilde, X, Z_aux, link, link.phi))[(p + k - q + 1):(p + k), (p + k - q + 1):(p + k)]
 
   # Score
-  S <- t(Ug2)%*%Kg2%*%Ug2
+  S <- t(U_berg(theta_tilde, y, X, Z_aux, link, link.phi))%*%
+         solve(K_berg(theta_tilde, X, Z_aux, link, link.phi))%*%
+         U_berg(theta_tilde, y, X, Z_aux, link, link.phi)
 
   # Wald
   W <- t(theta_hat[(p + k - q + 1):(p + k)] - gamma0)%*%solve(
@@ -116,10 +120,10 @@ disp_test <- function(y, X, Z, cols, gamma0 = NULL,
                ll_berg(theta_tilde, y, X, Z_aux, link, link.phi))
 
   # Gradient
-  G <- t(Ug2)%*%(theta_hat[(p + k - q + 1):(p + k)] - gamma0)
+  G <- t(U_berg(theta_tilde, y, X, Z_aux, link, link.phi))%*%
+              (theta_hat - theta_tilde)
 
-  #t(U_berg(theta_tilde, y, X, Z_aux, link, link.phi))%*%
-  #            (theta_hat - theta_tilde)
+  #t(Ug2)%*%(theta_hat[(p + k - q + 1):(p + k)] - gamma0)
 
   out <- as.matrix(c(S, W, LR, G))
   rownames(out) <- c("Score","Wald","Lik. Ratio","Gradient")
