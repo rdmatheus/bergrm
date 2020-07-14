@@ -125,7 +125,10 @@ mle_berg <- function(y, X, Z, link = "log", link.phi = "log",
 
     logLik <- -ll(est)
 
-    feasible <- all(hj(est) < 0)
+    mu.h  <- g1.inv(X%*%est[1:p])
+    phi.h <- g2.inv(Z%*%est[(p + 1):(p + k)])
+
+    feasible <- all(phi.h > abs(mu.h - 1))
   }
 
   if (optimizer == "optim"){
@@ -136,7 +139,10 @@ mle_berg <- function(y, X, Z, link = "log", link.phi = "log",
                                          method = "BFGS")$par)
     logLik <- -ll(est)
 
-    feasible <- all(hj(est) < 0)
+    mu.h  <- g1.inv(X%*%est[1:p])
+    phi.h <- g2.inv(Z%*%est[(p + 1):(p + k)])
+
+    feasible <- all(phi.h > abs(mu.h - 1))
   }
 
   return(list(est = est, logLik = logLik, feasible = feasible))
