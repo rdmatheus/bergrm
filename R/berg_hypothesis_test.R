@@ -22,14 +22,13 @@ mean_test <- function(y, X, Z, cols, beta0 = NULL,
 
   # Restricted mle
   eq_constraint <- function(theta){
-    return(c(rep(0, p - r), rep(1, r), rep(0, k))%*%theta -
+    return(cbind(matrix(0, r, p - r + k), diag(rep(1, r)))%*%theta -
              beta0)
   }
 
   eq_constraint_jac <- function(theta){
-    return(c(rep(0, p - r), rep(1, r), rep(0, k)))
+    return(cbind(matrix(0, r, p - r + k), diag(rep(1, r))))
   }
-
   theta_tilde <- mle_berg(y, X_aux, Z, link, link.phi, control,
                          eq_constraint = eq_constraint,
                          eq_constraint_jac = eq_constraint_jac)$est
