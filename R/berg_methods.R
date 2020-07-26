@@ -13,6 +13,7 @@ NULL
 # bergrm <- function(x) UseMethod("bergrm")
 
 # Print
+#' @export
 print.bergrm <- function(object)
 {
   cat("Call:\n")
@@ -82,6 +83,7 @@ summary.bergrm <- function(object)
 }
 
 # Print summary
+#' @export
 print.summary.bergrm <- function(object)
 {
   cat("Call:\n")
@@ -110,6 +112,7 @@ print.summary.bergrm <- function(object)
 
 # Plot
 #' @rdname  bergrm-methods
+#' @export
 plot.bergrm <- function(object)
 {
   y <- object$response
@@ -147,6 +150,7 @@ plot.bergrm <- function(object)
 
 # Log-likelihood
 #' @rdname bergrm-methods
+#' @export
 logLik.bergrm <- function(object) {
   ll <- object$logLik
   #attr(ll, "df") <- object$nobs - object$df.residual
@@ -156,7 +160,8 @@ logLik.bergrm <- function(object) {
 }
 
 # AIC
-#' @rdname bergrm-methods
+#' @rdname bergrm-
+#' @export
 AIC.bergrm <- function(object) {
   AIC <- - 2 * object$logLik + 2 * (object$p + object$k)
   class(AIC) <- "AIC"
@@ -165,6 +170,7 @@ AIC.bergrm <- function(object) {
 
 # BIC
 #' @rdname bergrm-methods
+#' @export
 BIC.bergrm <- function(object) {
   n <- object$n.obs
 
@@ -179,6 +185,7 @@ BIC.bergrm <- function(object) {
 #'   \code{"dispersion"} model. If \code{"all"} (default), a list with
 #'   coefficients for the \code{mean} and for the \code{dispersion}
 #'   model is returned.
+#' @export
 coef.bergrm <- function(object,
                         what = c("all", "mean", "dispersion")) {
   what <- match.arg(what)
@@ -193,12 +200,14 @@ coef.bergrm <- function(object,
 
 #  Variance-covariance matrix
 #' @rdname bergrm-methods
+#' @export
 vcov.bergrm <- function(object) {
   return(object$vcov)
 }
 
 # Design matrices
 #' @rdname bergrm-methods
+#' @export
 model.matrix.bergrm <- function(object) {
   list(X = object$X, Z = object$Z)
 }
