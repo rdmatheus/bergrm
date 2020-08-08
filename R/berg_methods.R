@@ -1,8 +1,7 @@
 #' @name bergrm-methods
 #' @title Methods for 'bergrm' objects
 #' @param object an object of class \code{bergrm}.
-# #' @param digits minimal number of _significant_ digits, see
-# #'   \code{\link[base]{print.default}}.
+#'
 #' @return .
 #'
 #' @references Bourguignon, M. & Medeiros, R. (2019). A flexibe, simple and useful regression model for fitting count data.
@@ -10,7 +9,7 @@
 #' @author Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>
 NULL
 
-# bergrm <- function(x) UseMethod("bergrm")
+#bergrm <- function(x) UseMethod("bergrm")
 
 # Print
 #' @export
@@ -25,6 +24,7 @@ print.bergrm <- function(object)
 }
 
 # Summary
+#' @export
 summary.bergrm <- function(object)
 {
   n <- object$n.obs

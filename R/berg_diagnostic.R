@@ -268,7 +268,7 @@ envel_berg = function(object, R = 99, control = berg_control())
 
   # Randomized quantile residual
   stats::qqnorm(sort(rq), main = " ", xlab = "Theoretical quantile",
-                ylab = "Randomized quantile residuals", type = "n")
+                ylab = "Randomized quantile residual", type = "n")
   graphics::polygon(c(qq, sort(qq, decreasing = T)),
                     c(minq, sort(Maxq, decreasing = T)), col = "lightgray", border = NA)
   graphics::polygon(c(qq, sort(qq, decreasing = T)),

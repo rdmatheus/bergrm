@@ -346,7 +346,7 @@ bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
   }
 
   est <- c((out$coe)$mean, (out$coe)$disp)
-  vcov <- out$vcov
+  out$vcov <- solve(K_berg(est, X, Z, link = link, link.phi = link.phi))
 
   class(out) <- "bergrm"
   out
@@ -358,7 +358,7 @@ bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
 #' @rdname bergrm
 #' @export
 berg_fit <- function(y, X, Z = NULL, link = "log", link.phi = "log",
-                     control = berg_control())
+                     control = berg_control(...), ...)
 {
 
   n <- length(y); delta <- (as.numeric(y == 0))
@@ -392,9 +392,6 @@ berg_fit <- function(y, X, Z = NULL, link = "log", link.phi = "log",
   mu  <- g1.inv(X%*%beta)
   phi <- g2.inv(Z%*%gama)
 
-  # Assymptotic variance and covariance matrix of the coefficients
-  vcov <- solve(K_berg(est, X, Z, link = link, link.phi = link.phi))
-
   # Loglikelihood and informations criteria
   logLik <- mle$logLik
   AIC <- - 2 * logLik + 2 * (p + k)
@@ -408,7 +405,7 @@ berg_fit <- function(y, X, Z = NULL, link = "log", link.phi = "log",
 
   rval <- list(coefficients = list(mean = beta, dispersion = gama),
                link = link, link.phi = link.phi,
-               vcov = vcov, logLik = logLik, AIC = AIC,
+               logLik = logLik, AIC = AIC,
                BIC = BIC, n.obs = n, p = p, k = k, feasible = feasible, pearson.residuals = rp, residuals = rq,
                fitted.values = structure(mu, .Names = names(y)),
                linear.predictors=list(eta1 = g(link)$fun(mu), eta2 = g(link.phi)$fun(phi)),
