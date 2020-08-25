@@ -37,18 +37,15 @@
 #' @format A data frame with 126 observations on the following 12 variables.
 #'
 #' \itemize{
-#' \item \code{docno}: a vector.
-#' \item \code{weeks}: a vector.
 #' \item \code{numbids}: a vector.
-#' \item \code{bidprem}: a vector.
-#' \item \code{insthold}: a vector.
-#' \item \code{size}: a vector.
 #' \item \code{leglrest}: a vector.
 #' \item \code{realrest}: a vector.
 #' \item \code{finrest}: a vector.
-#' \item \code{regulatn}: a vector.
 #' \item \code{whtknght}: a vector.
-#' \item \code{sizeq}: a vector.
+#' \item \code{bidprem}: a vector.
+#' \item \code{insthold}: a vector.
+#' \item \code{size}: a vector.
+#' \item \code{regulatn}: a vector.
 #' }
 #'
 #' @usage data(bids)
