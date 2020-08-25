@@ -68,7 +68,7 @@ summary.bergrm <- function(object)
 
   if (!is.null(object$test)){
     p.val <- pchisq(object$test, k-1, lower.tail = FALSE)
-    TAB.test <- rbind(object$test,p.val)
+    TAB.test <- round(rbind(object$test,p.val), 4)
     colnames(TAB.test) <- c("S","W","LR","G")
     rownames(TAB.test) <- c("Value", "P value")
   }else{
