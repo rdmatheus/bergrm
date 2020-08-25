@@ -4,7 +4,8 @@
 #'
 #' @return .
 #'
-#' @references Bourguignon, M. & Medeiros, R. (2019). A flexibe, simple and useful regression model for fitting count data.
+#' @references Bourguignon, M. & Medeiros, R. (2019). A simple and
+#'     useful regression model for fitting count data.
 #'
 #' @author Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>
 NULL
@@ -160,7 +161,7 @@ logLik.bergrm <- function(object) {
 }
 
 # AIC
-#' @rdname bergrm-
+#' @rdname bergrm-methods
 #' @export
 AIC.bergrm <- function(object) {
   AIC <- - 2 * object$logLik + 2 * (object$p + object$k)

@@ -173,6 +173,7 @@ skberg <- function(mu, phi){
   m3 <- mu*(3*(mu^2)+6*mu*phi+3*(phi^2)-1)/2
   return((m3 - 3*mu*(mu*phi) - mu^3)/((phi*mu)^(3/2)))
 }
+
 #' @rdname berg_sk_kt
 #' @export
 ktberg <- function(mu, phi){
