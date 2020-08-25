@@ -20,4 +20,3 @@ To run the above command, it is necessary that the `devtools` package is previou
 install.packages("devtools")
 ```
 After installing the devtools package, if you are using Windows, install the most current [RTools](https://cran.r-project.org/bin/windows/Rtools/) program. Finally, run the command `devtools::install_github("rdmatheus/bergrm")`, and then the package will be installed on your computer.
-
