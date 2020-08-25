@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "rodrigo.matheus@live.com")
 Description: A regression model for modeling overdispersed,
-    equidispersed, and subdispersed count data, where
+    equidispersed, and underdispersed count data, where
     it is assumed that dependent variables are
     distributed according to the BerG distribution.
 License: GPL-3

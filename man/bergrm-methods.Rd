@@ -5,28 +5,29 @@
 \alias{plot.bergrm}
 \alias{logLik.bergrm}
 \alias{AIC.bergrm}
-\alias{BIC.bergrm}
 \alias{coef.bergrm}
 \alias{vcov.bergrm}
 \alias{model.matrix.bergrm}
 \title{Methods for 'bergrm' objects}
 \usage{
-\method{plot}{bergrm}(object)
+\method{plot}{bergrm}(x, ...)
 
-\method{logLik}{bergrm}(object)
+\method{logLik}{bergrm}(object, ...)
 
-\method{AIC}{bergrm}(object, k = 2)
+\method{AIC}{bergrm}(object, ..., k = 2)
 
-\method{BIC}{bergrm}(object)
+\method{coef}{bergrm}(object, what = c("all", "mean", "dispersion"), ...)
 
-\method{coef}{bergrm}(object, what = c("all", "mean", "dispersion"))
+\method{vcov}{bergrm}(object, ...)
 
-\method{vcov}{bergrm}(object)
-
-\method{model.matrix}{bergrm}(object, matrix = c("all", "mean", "dispersion"))
+\method{model.matrix}{bergrm}(object, matrix = c("all", "mean", "dispersion"), ...)
 }
 \arguments{
+\item{...}{further additional arguments.}
+
 \item{object}{an object of class \code{bergrm}.}
+
+\item{k}{numeric, the penalty per parameter to be used; the default k = 2 is the classical AIC.}
 
 \item{what}{a character indicating which parameter coefficients are
 required, parameters for the \code{"mean"} or for the
@@ -38,8 +39,6 @@ model is returned.}
 required, the model matrix for the mean (\code{"mean"}) or for the
 dispersion parameter (\code{"dispersion"}). If \code{"all"} (default), a list with
 with both matrices are returned.}
-
-\item{numeric, }{the penalty per parameter to be used; the default k = 2 is the classical AIC.}
 }
 \value{
 .
