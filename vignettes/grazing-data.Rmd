@@ -1,0 +1,97 @@
+---
+title: "grazing-data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{grazing-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = " ",
+  fig.align = "center"
+)
+```
+
+```{r setup}
+# Packages
+library(bergrm)
+library(dplyr)
+library(robustbase)
+```
+
+## Data description
+
+The study contains 62 observations, which measured, among other characteristics, the number of understorey birds (birds) and when the bird count was conducted (when). Further, one side had limited grazing (mainly from native herbivores) and the other was heavily grazed by feral herbivores, mostly horses. Hence, the bird counts were done at the sites either side of the fence (before measurements). Then, the herbivores were removed, and the birds recounted (after measurements). The side of the stockproof fence (grazed) as well as a factor with levels Reference (grazed by native herbivores) and Feral (grazed by feral herbivores, mainly horses) were also
+measured. The measurements are the total number of understorey-foraging birds
+observed in three 20-minute surveys of two-hectare quadrants.
+
+```{r}
+# Data set (first 6 lines)
+head(grazing)
+
+# Factors levels
+levels(grazing$when)
+levels(grazing$grazed)
+
+# Attach
+attach(grazing)
+```
+
+## Exploratory data analysis
+
+```{r, out.width = "40%", fig.align = "default", fig.show = "hold"}
+# Barplot of the response
+barplot(table(birds), xlab = "Number of understorey birds",
+        ylab = "Frequency")
+
+# Dispersion conditionaly the covariates
+mv <- grazing %>% group_by(when, grazed) %>%
+  summarise(mean = mean(birds),
+            var = var(birds),
+            di = var/mean)
+
+plot(mv$mean, mv$var, xlim = c(0, 15), ylim = c(0, 160),
+     xlab = "Mean", ylab = "Variance", pch = 16)
+abline(0, 1, lty = 2)
+```
+
+
+```{r, out.width = "40%", fig.align = "default", fig.show = "hold"}
+# Boxplots
+adjbox(birds ~ when, xlab = "When the bird count was conduct",
+       ylab = "Number of understorey birds", pch = 16)
+
+adjbox(birds ~ grazed, xlab = "Which side of the stockproof fence",
+       ylab = "Number of understorey birds", pch = 16)
+```
+
+## BerG fit
+
+Let $Y_i$ denote the number of understorey birds in the $i$th site. Initially, assume that $Y_i$ follows a BerG distribution with mean $\mu_i$ and dispersion index $\phi_i$, that is, $Y_i \sim \textrm{BerG}(\mu_i, \phi_i)$, with a systematic component given by}
+$$
+\begin{align*}
+\log(\mu_i) & = \beta_0+\beta_1\texttt{when}_i+\beta_2\texttt{grazed}_i, \\
+\log(\phi_i) & = \gamma_0+\gamma_1\texttt{when}_i+\gamma_2 \texttt{grazed}_i,\nonumber
+\end{align*}
+$$
+for $i = 1, \ldots, 62$, where $\texttt{when}_i = 1$ if the $i$th bird count was conducted after the herbivores were removed and 0 otherwise; and $\texttt{grazed}_i = 1$ if, for the $i$th bird count, the side of the stockproof fence is grazed by the feral herbivores.
+
+The summary for the fitted model is provided below. 
+
+```{r}
+fit <- glm.bg(birds ~ . | ., data = grazing, disp.test = TRUE)
+
+# Print
+fit
+
+# Summary
+summary(fit)
+```
+
+
+
