@@ -134,18 +134,14 @@ plot.bergrm <- function(object)
   obs <- table(y)
   esp <-expect_berg(y, mu.h, phi.h)
 
-  # Observed vs expected
-  graphics::barplot(t(cbind(sqrt(obs), sqrt(esp))), beside = T, col = c("gray40", "lightgray"), ylab = "Frequency", xlab = "y")
-  graphics::legend("topright", c("Observed", "Expected"), col = c("gray40", "lightgray"),bty = "n", pch = 15)
-
   # Rootogram
-  op <- par()
+  op <- par("mar")
   par(mar = c(5, 4.5, 4, 2) + 0.1)
   x.axis <- graphics::barplot(sqrt(obs), col = "lightgray",
                     xlab = "y", ylab = expression(sqrt("Frequency")),
                     ylim = c(0, max(sqrt(obs), sqrt(esp)) + 0.5))
   points(x.axis, sqrt(esp), col = "red4", type = "b", pch = 16)
-  par(op)
+  par(mar = op)
 }
 
 # Log-likelihood
