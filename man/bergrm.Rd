@@ -2,15 +2,29 @@
 % Please edit documentation in R/berg_regression.R
 \name{bergrm}
 \alias{bergrm}
+\alias{glm.bg}
 \alias{berg_fit}
 \title{BerG Regression for Count Data}
 \usage{
-bergrm(formula, data, link = c("log", "sqrt", "identity"),
-  link.phi = NULL, disp.test = FALSE, control = berg_control(...),
-  ...)
+glm.bg(
+  formula,
+  data,
+  link = c("log", "sqrt", "identity"),
+  link.phi = NULL,
+  disp.test = FALSE,
+  control = berg_control(...),
+  ...
+)
 
-berg_fit(y, X, Z = NULL, link = "log", link.phi = "log",
-  control = berg_control())
+berg_fit(
+  y,
+  X,
+  Z = NULL,
+  link = "log",
+  link.phi = "log",
+  control = berg_control(...),
+  ...
+)
 }
 \arguments{
 \item{formula}{description of the model, of the type \code{y ~ x} for covariates in mean only, or \code{y ~ x | z} to enter covariates in the dispersion index.}

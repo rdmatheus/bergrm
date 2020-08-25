@@ -4,13 +4,15 @@
 \name{grazing}
 \alias{grazing}
 \title{Bird abundance in grazing areas}
-\format{A data frame with 62 observations on the following 3 variables.
+\format{
+A data frame with 62 observations on the following 3 variables.
 
 \itemize{
 \item \code{birds}: the number of understorey birds; a numeric vector.
 \item \code{when}: when the bird count was conducted; a factor with levels \code{Before} (before herbivores were removed) and \code{After} (after herbivores were removed).
 \item \code{grazed}: which side of the stockproof fence; a factor with levels \code{Reference} (grazed by native herbivores) and \code{Feral} (grazed by feral herbivores, mainly horses).
-}}
+}
+}
 \usage{
 data(grazing)
 }

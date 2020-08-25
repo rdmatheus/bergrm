@@ -15,7 +15,7 @@
 
 \method{logLik}{bergrm}(object)
 
-\method{AIC}{bergrm}(object)
+\method{AIC}{bergrm}(object, k = 2)
 
 \method{BIC}{bergrm}(object)
 
@@ -23,7 +23,7 @@
 
 \method{vcov}{bergrm}(object)
 
-\method{model.matrix}{bergrm}(object)
+\method{model.matrix}{bergrm}(object, matrix = c("all", "mean", "dispersion"))
 }
 \arguments{
 \item{object}{an object of class \code{bergrm}.}
@@ -33,6 +33,13 @@ required, parameters for the \code{"mean"} or for the
 \code{"dispersion"} model. If \code{"all"} (default), a list with
 coefficients for the \code{mean} and for the \code{dispersion}
 model is returned.}
+
+\item{matrix}{a character indicating which model matrix is
+required, the model matrix for the mean (\code{"mean"}) or for the
+dispersion parameter (\code{"dispersion"}). If \code{"all"} (default), a list with
+with both matrices are returned.}
+
+\item{numeric, }{the penalty per parameter to be used; the default k = 2 is the classical AIC.}
 }
 \value{
 .
@@ -41,7 +48,8 @@ model is returned.}
 Methods for 'bergrm' objects
 }
 \references{
-Bourguignon, M. & Medeiros, R. (2019). A flexibe, simple and useful regression model for fitting count data.
+Bourguignon, M. and Medeiros, R. M. R. (2020). A simple
+    and useful regression model for fitting count data.
 }
 \author{
 Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>

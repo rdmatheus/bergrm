@@ -270,7 +270,7 @@ berg_control <- function(start = NULL,
 
 #' @rdname bergrm
 #' @export
-bergrm <- function(formula, data, link=c("log", "sqrt", "identity"),
+glm.bg <- function(formula, data, link=c("log", "sqrt", "identity"),
                    link.phi = NULL, disp.test = FALSE,
                    control = berg_control(...), ...)
 {

@@ -5,9 +5,17 @@
 \alias{mle_berg}
 \title{Maximum likelihood estimates for the BerG regression model}
 \usage{
-mle_berg(y, X, Z, link = "log", link.phi = "log",
-  control = berg_control(...), eq_constraint = NULL,
-  eq_constraint_jac = NULL, ...)
+mle_berg(
+  y,
+  X,
+  Z,
+  link = "log",
+  link.phi = "log",
+  control = berg_control(...),
+  eq_constraint = NULL,
+  eq_constraint_jac = NULL,
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of the response variable, in counts.}
