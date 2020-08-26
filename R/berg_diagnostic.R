@@ -141,6 +141,29 @@ rqr_berg <- function(y, mu, phi){
   return(stats::qnorm(u))
 }
 
+#' @export
+root_berg <- function(x){
+
+  y <- x$response
+  mu.h <- x$fitted.values
+  phi.h <- x$phi.h
+  n <- x$n.obs
+
+  ob <- sort(unique(y))
+  obs <- table(y)
+  esp <-expect_berg(y, mu.h, phi.h)
+
+  # Rootogram
+  op <- graphics::par("mar")
+  graphics::par(mar = c(5, 4.5, 4, 2) + 0.1)
+  x.axis <- graphics::barplot(sqrt(obs), col = "lightgray",
+                              xlab = "y", ylab = expression(sqrt("Frequency")),
+                              ylim = c(0, max(sqrt(obs), sqrt(esp)) + 0.5))
+  graphics::points(x.axis, sqrt(esp), col = "red4", type = "b", pch = 16)
+  par(mar = op)
+}
+
+
 #' @name envel_berg
 #'
 #' @title Envelope Graph of the BerG Regression Model
@@ -163,7 +186,7 @@ rqr_berg <- function(y, mu, phi){
 #' Pearson residuals and random quantile residuals, respectively.
 #'
 #' @export
-envel_berg = function(object, R = 99, control = berg_control())
+envel_berg <- function(object, R = 99, control = berg_control())
 {
   # Model specifications
   y <- object$response

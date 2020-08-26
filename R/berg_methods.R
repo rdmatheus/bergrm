@@ -128,36 +128,31 @@ plot.bergrm <- function(x, residual = c("all", "quantile", "pearson"), ...)
 
   residual <- match.arg(residual)
 
+  if (residual != "all"){
+    ask <- FALSE
+  }else{
+    ask <- TRUE
+  }
+
   if (residual != "pearson" ) {
-    graphics::par(mfrow=c(2,2), ask = TRUE)
+    graphics::par(mfrow=c(2,2), ask = ask)
     graphics::plot(mu.h, rq, xlab = "Fitted values", ylab = "Residuals", pch = "+")
     graphics::plot(1:n, rq, xlab = "Index", ylab = "Residuals", pch = "+")
     graphics::plot(stats::density(rq), xlab = "Residuals", ylab = "Density", main = " ", ylim = c(0, max(stats::dnorm(0), density(rq)$y)))
     graphics::curve(stats::dnorm(x), lty = 2, col = 2, add = T)
     stats::qqnorm(rq, xlab = "Theoretical quantile", ylab = "Residuals", pch = "+", main = " ")
     graphics::abline(0, 1, lty = 2)
-    graphics::par(mfrow=c(1,1))
+    graphics::par(mfrow=c(1,1), ask = FALSE)
   }
 
   if (residual != "quantile") {
+    graphics::par(mfrow=c(2,2), ask = ask)
     graphics::par(mfrow=c(1,2))
     graphics::plot(mu.h, rp, xlab = "Fitted values", ylab = "Pearson residuals", pch = "+")
     graphics::plot(1:n, rp, xlab = "Index", ylab = "Pearson residuals", pch = "+")
-    graphics::par(mfrow=c(1,1))
+    graphics::par(mfrow=c(1,1), ask = FALSE)
   }
 
-  ob <- sort(unique(y))
-  obs <- table(y)
-  esp <-expect_berg(y, mu.h, phi.h)
-
-  # Rootogram
-  op <- graphics::par("mar")
-  graphics::par(mar = c(5, 4.5, 4, 2) + 0.1)
-  x.axis <- graphics::barplot(sqrt(obs), col = "lightgray",
-                    xlab = "y", ylab = expression(sqrt("Frequency")),
-                    ylim = c(0, max(sqrt(obs), sqrt(esp)) + 0.5))
-  graphics::points(x.axis, sqrt(esp), col = "red4", type = "b", pch = 16)
-  graphics::par(mar = op, ask = FALSE)
 }
 
 # Log-likelihood
