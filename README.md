@@ -58,8 +58,8 @@ fit
 #> [1]  2.42884684 -0.02824461 -0.43131213
 
 # Summary
-#> 
-#> summary(fit)
+
+summary(fit)
 #>
 #> Call:
 #> glm.bg(formula = birds ~ when + grazed | when + grazed, data = grazing, 
