@@ -4,14 +4,27 @@
 \alias{envel_berg}
 \title{Envelope Graph of the BerG Regression Model}
 \usage{
-envel_berg(object, R = 99, control = berg_control())
+envel_berg(
+  object,
+  residual = c("all", "quantile", "pearson"),
+  R = 99,
+  control = berg_control(...),
+  ...
+)
 }
 \arguments{
 \item{object}{object of class 'bergrm'.}
 
+\item{residual}{character; specifies which residual should be produced
+in the normal probability plot. The available arguments are "all" (default)
+for both randomized quantile and Pearson residuals; "quantile" for randomized
+quantile residuals; and "pearson" for Pearson residuals.}
+
 \item{R}{number of replicates.}
 
 \item{control}{a list of control arguments specified via \code{berg_control}.}
+
+\item{...}{arguments passed to \code{berg_control}.}
 }
 \value{
 Returns the normal envelope simulated probability plot of

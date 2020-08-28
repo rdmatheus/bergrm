@@ -5,7 +5,7 @@
 > Rodrigo M. R. Medeiros
 > <rodrigo.matheus@live.com>, IME-USP
 
-The `bergrm` package provide a set of functions for a complete regression analysis of count data, in which it is assumed that the dependent variable follows a BerG distribution. The BerG regression was proposed by Bourguignon and Medeiros (2020), and can be used to fit count data with overdispersion, equidispersion (but are not Poisson-distributed), and underdispersion.
+The `bergrm` package (in development) provide a set of functions for a complete regression analysis of count data, in which it is assumed that the dependent variable follows a BerG distribution. The BerG regression was proposed by Bourguignon and Medeiros (2020), and can be used to fit count data with overdispersion, equidispersion (but are not Poisson-distributed), and underdispersion.
 
 ## Installation
 

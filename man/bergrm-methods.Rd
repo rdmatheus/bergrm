@@ -10,7 +10,7 @@
 \alias{model.matrix.bergrm}
 \title{Methods for 'bergrm' objects}
 \usage{
-\method{plot}{bergrm}(x, ...)
+\method{plot}{bergrm}(x, residual = c("all", "quantile", "pearson"), ...)
 
 \method{logLik}{bergrm}(object, ...)
 
@@ -23,6 +23,11 @@
 \method{model.matrix}{bergrm}(object, matrix = c("all", "mean", "dispersion"), ...)
 }
 \arguments{
+\item{residual}{character; specifies which residual should be produced
+in the summary plot. The available arguments are "all" for both
+randomized quantile and Pearson residuals; "quantile" for randomized
+quantile residuals; and "pearson" for Pearson residuals.}
+
 \item{...}{further additional arguments.}
 
 \item{object}{an object of class \code{bergrm}.}

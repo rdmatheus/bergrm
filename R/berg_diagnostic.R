@@ -173,8 +173,13 @@ root_berg <- function(x){
 #' quantile residuals resulting from the BerG regression model fit.
 #'
 #' @param object object of class 'bergrm'.
+#' @param residual character; specifies which residual should be produced
+#'     in the normal probability plot. The available arguments are "all" (default)
+#'     for both randomized quantile and Pearson residuals; "quantile" for randomized
+#'     quantile residuals; and "pearson" for Pearson residuals.
 #' @param R number of replicates.
 #' @param control a list of control arguments specified via \code{berg_control}.
+#' @param ... arguments passed to \code{berg_control}.
 #'
 #' @references
 #' Bourguignon, M. and Medeiros, R. (2019). A flexibe, simple and useful regression model for fitting count data.
@@ -186,7 +191,8 @@ root_berg <- function(x){
 #' Pearson residuals and random quantile residuals, respectively.
 #'
 #' @export
-envel_berg <- function(object, R = 99, control = berg_control())
+envel_berg <- function(object, residual = c("all", "quantile", "pearson"),
+                       R = 99, control = berg_control(...), ...)
 {
   # Model specifications
   y <- object$response
@@ -275,7 +281,17 @@ envel_berg <- function(object, R = 99, control = berg_control())
   # Envelope                           #
   ######################################
 
+  residual <- match.arg(residual)
+
+  if (residual != "all"){
+    ask <- FALSE
+  }else{
+    ask <- TRUE
+  }
+
   # Pearson residual
+  if (residual != "quantile") {
+  graphics::par(ask = ask)
   stats::qqnorm(rp, main = " ", xlab = "Theoretical quantile",
                 ylab = "Pearson residual", type = "n")
   graphics::polygon (c(qq, sort(qq, decreasing = T)),
@@ -288,8 +304,13 @@ envel_berg <- function(object, R = 99, control = berg_control())
   graphics::points(qq, sort(rp), pch = "+")
   graphics::points(qq, at, type="l", lty=2)
   graphics::box()
+  graphics::par(ask = FALSE)
+  }
+
 
   # Randomized quantile residual
+  if (residual != "pearson" ) {
+  graphics::par(ask = ask)
   stats::qqnorm(sort(rq), main = " ", xlab = "Theoretical quantile",
                 ylab = "Randomized quantile residual", type = "n")
   graphics::polygon(c(qq, sort(qq, decreasing = T)),
@@ -302,4 +323,6 @@ envel_berg <- function(object, R = 99, control = berg_control())
   graphics::points(qq, sort(rq), pch = "+")
   graphics::points(qq, aq, type = "l", lty = 2)
   graphics::box()
+  graphics::par(mfrow=c(1,1), ask = FALSE)
+  }
 }
