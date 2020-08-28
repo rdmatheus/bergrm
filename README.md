@@ -38,7 +38,7 @@ library(bergrm)
 ``` r
 # Fit a double model (mean and dispersion) with a test for constant dispersion
 
-fit <- glm.bg(birds ~ when + grazed | when + grazed, data = grazing, disp_test = TRUE)
+fit <- glm.bg(birds ~ when + grazed | when + grazed, data = grazing, disp.test = TRUE)
 
 ## For glm.bg documentation:
 ?glm.bg
@@ -94,6 +94,12 @@ summary(fit)
 #>   0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’  0.1 ‘ ’ 1
 #> 
 #> ----------------------------------------------------------------
+#> 
+#> Test for constant dispersion:
+#>              S      W     LR      G
+#> Value   2.5045 1.6195 1.9735 1.9987
+#> P value 0.2859 0.4450 0.3728 0.3681
+#> 
 #> In addition, Log-lik value: -178.36 
 #> AIC: 368.72 and BIC: 381.4828
 
