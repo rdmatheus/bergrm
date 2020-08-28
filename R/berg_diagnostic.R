@@ -141,13 +141,42 @@ rqr_berg <- function(y, mu, phi){
   return(stats::qnorm(u))
 }
 
+#' @name rootogram_berg
+#'
+#' @title Rootograms for the BerG Regression Model
+#'
+#' @description Provides a rootograms that graphically compare
+#'  (square roots) of empirical frequencies with fitted frequencies.
+#'  For details see Kleiber and Zeileis (2016).
+#'
+#' @param object object of class 'bergrm'.
+#'
+#' @return The rootogram for a fitted BerG regression.
+#'
+#' @references Bourguignon, M. & Medeiros, R. (2020). A simple and useful regression model for fitting count data.
+#'
+#' @references Kleiber, C., & Zeileis, A. (2016). Visualizing count data regressions using rootograms. The American Statistician, 70, 296-303
+#'
+#' @author Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>
+#'
 #' @export
-root_berg <- function(x){
+#'
+#' @examples
+#'
+#' data(grazing)
+#'
+#' # BerG fit
+#' fit <- glm.bg(birds ~ ., data = grazing)
+#'
+#' # Rootogram
+#' root_berg(fit)
+#'
+root_berg <- function(object){
 
-  y <- x$response
-  mu.h <- x$fitted.values
-  phi.h <- x$phi.h
-  n <- x$n.obs
+  y <- object$response
+  mu.h <- object$fitted.values
+  phi.h <- object$phi.h
+  n <- object$n.obs
 
   ob <- sort(unique(y))
   obs <- table(y)
