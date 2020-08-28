@@ -189,7 +189,7 @@ root_berg <- function(object){
                               xlab = "y", ylab = expression(sqrt("Frequency")),
                               ylim = c(0, max(sqrt(obs), sqrt(esp)) + 0.5))
   graphics::points(x.axis, sqrt(esp), col = "red4", type = "b", pch = 16)
-  par(mar = op)
+  graphics::par(mar = op)
 }
 
 
@@ -352,6 +352,6 @@ envel_berg <- function(object, residual = c("all", "quantile", "pearson"),
   graphics::points(qq, sort(rq), pch = "+")
   graphics::points(qq, aq, type = "l", lty = 2)
   graphics::box()
-  graphics::par(mfrow=c(1,1), ask = FALSE)
+  graphics::par(ask = FALSE)
   }
 }
