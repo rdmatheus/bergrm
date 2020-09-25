@@ -27,7 +27,10 @@ This package provide complete estimation and inference for the parameters as wel
 
 ``` r
 library(bergrm)
+```
+There are currently two data sets available in the `bergrm` package, `grazing` and `bids`. To access the documentation associated with this data, use `help(grazing)` and `help(bids)`, respectively. In this example we use the `grazing` data set.
 
+```r
 # Data visualization (For description: ?grazing)
 ```
 ![alt text](figures/fig1a.png)
