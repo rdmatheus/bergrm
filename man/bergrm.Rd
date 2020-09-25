@@ -27,45 +27,67 @@ berg_fit(
 )
 }
 \arguments{
-\item{formula}{description of the model, of the type \code{y ~ x} for covariates in mean only, or \code{y ~ x | z} to enter covariates in the dispersion index.}
+\item{formula}{a symbolic description of the model, of type y ~ x or
+y ~ x | z.See details below.}
 
-\item{data}{an optional data frame containing the variables in the formula. By default the variables are taken from environment(formula).}
+\item{data}{an optional data frame containing the variables in the formula.
+By default the variables are taken from environment(formula).}
 
-\item{link, link.phi}{character; specification of the link function in the mean and in the dispersion index. The links \code{"log"} (default) \code{"sqrt"} and \code{"identity"} can be used.}
+\item{link, link.phi}{character; specification of the link function in the
+mean model. The links \code{"log"}, \code{"sqrt"}, and \code{"identity"}
+can be used. For the mean model, the default link function is "log".
+For the dispersion index model, the default link function is also "log"
+unless formula is of type y ~ x where the default is "identity".}
 
-\item{disp.test}{logical, if TRUE, the function \code{bergrm} returns the test for constant dispersion.}
+\item{disp.test}{logical; if TRUE, the function \code{glm.bg} returns the
+test for constant dispersion.}
 
-\item{control}{a list of control arguments specified via \code{berg_control}.}
+\item{control}{a list of control arguments specified via \code{berg_control}
+(under development).}
 
-\item{...}{arguments passed to \code{berg_control}}
+\item{...}{arguments passed to \code{berg_control} (under development).}
 
-\item{y}{a numeric vector of the response variable, in counts. This argument is used in the \code{berg_fit} function to get the estimates and required quantities that will return in the object resulting from the \code{bergrm} function.}
+\item{y}{a numeric vector of the response variable, in counts. This argument
+is used only in the \code{berg_fit} function.}
 
-\item{X, Z}{model matrices associated with the mean and the dispersion parameter, respectively, which are used in the \code{fit_sdl} function.}
+\item{X, Z}{model matrices associated with the mean and the dispersion index
+parameters, respectively, which are used only in the \code{berg_fit} function.}
 }
 \value{
-The \code{bergrm} function returns an object of class "bergrm", which consists of a list with the following components.
+The \code{glm.bg} function returns an object of class "bergrm",
+ which consists of a list with the following components. \code{berg_fit} is
+ an auxiliary function that returns an unclassed list formed by some of the
+ components below. This function can be used to fit the BerG regression
+ in terms of the y, X, and Z objects instead of the formula.
 \describe{
-  \item{coefficients}{ a list containing the elements "mean" and
+  \item{coefficients}{a list containing the elements "mean" and
         "dispersion" that consist of the estimates of the
-         coefficients associated with the mean and the dispersion index, respectively.}
-  \item{link, link.phi}{the link function used for the mean model, and for the dispersion index model, respectively.}
-  \item{vcov}{asymptotic covariance matrix of the maximum likelihood estimator of the model parameters vector.}
+         coefficients associated with the mean and the dispersion index,
+         respectively.}
+  \item{link, link.phi}{the link function used for the mean model, and for
+   the dispersion index model, respectively.}
+  \item{vcov}{asymptotic covariance matrix of the maximum likelihood
+   estimator of the model parameters vector. Specifically, the inverse of
+   the Fisher information matrix.}
   \item{logLik}{log-likelihood of the fitted model.}
   \item{AIC}{model Akaike information criteria.}
   \item{BIC}{model bayesian information criteria.}
-  \item{n.obs, p, k}{Sample size, number of coefficients in the mean model, and number of coefficients in the dispersion index model, respectively.}
-  \item{feasible}{Logical. If \code{TRUE}, the estimates obtained belong to the parametric space.}
+  \item{n.obs, p, k}{Sample size, number of coefficients in the mean model,
+   and number of coefficients in the dispersion index model, respectively.}
+  \item{feasible}{Logical. If \code{TRUE}, the estimates obtained belong to
+   the parametric space.}
   \item{pearson.residuals}{a vector with the Pearson residuals.}
   \item{residuals}{a vector with the randomized quantile residuals.}
   \item{fitted.values}{a vector with the fitted means.}
   \item{phi.hat}{a vector with the fitted dispersion indexes.}
   \item{linear.predictors}{a list containing the elements "eta1" and
-        "eta2" that consist of the fitted linear predictor for the mean and the dispersion index.}
+        "eta2" that consist of the fitted linear predictor for the mean and
+         the dispersion index.}
   \item{response}{the vector of the response.}
-  \item{X, Z}{model matrices associated with the mean and the dispersion parameter, respectively.}
+  \item{X, Z}{model matrices associated with the mean and the dispersion
+   parameter, respectively.}
   \item{call}{the function call.}
-  \item{formula}{the formula used to specify the model in \code{bergrm}.}
+  \item{formula}{the formula used to specify the model in \code{glm.bg}.}
  }
 }
 \description{
@@ -73,8 +95,53 @@ Fit of the BerG regression model via maximum
 likelihood for a new parameterization of this distribution
 that is indexed by the mean and the dispersion index.
 }
+\details{
+The basic formula is of type \code{y ~ x1 + x2 + ... + xp} which
+ specifies the model for the mean response only. Following the syntax of the
+ \code{betareg} package (Cribari-Neto and Zeileis, 2010), the model for the dispersion index, say in terms of
+ z1, z2, ..., zk, is specified as \code{y ~ x1 + x2 + ... + xp | z1 + z2 +
+ ... +zk} using functionalities inherited from package \code{Formula}
+ (Zeileis and Croissant, 2010).
+}
+\examples{
+# Dataset: grazing
+
+data(grazing)
+attach(grazing); head(grazing)
+
+# Response variable (Number of understorey birds)
+plot(table(birds), xlab = "Number of understorey birds", ylab = "Frequency")
+
+# Explanatory variables
+boxplot(split(birds, when), ylab = "Number of understorey birds",
+        xlab = "When the bird count was conduct", pch = 16)
+boxplot(split(birds, grazed), ylab = "Number of understorey birds",
+        xlab = " Which side of the stockproof fence", pch = 16)
+
+
+# Fit of the BerG regression model with varying dispersion
+fit_disp <- glm.bg(birds ~ when + grazed | when + grazed, data = grazing)
+summary(fit_disp)
+
+# Fit of the BerG regression model with constant dispersion
+fit <- glm.bg(birds ~ when + grazed, data = grazing, link.phi = "identity")
+summary(fit)
+
+# Diagnostic
+plot(fit)
+envel_berg(fit)
+
+detach(grazing)
+}
 \references{
-Bourguignon, M. & Medeiros, R. (2020). A simple and useful regression model for fitting count data
+Bourguignon, M. & Medeiros, R. (2020). A simple and useful regression model for fitting count data.
+
+Cribari-Neto F, Zeileis A (2010). Beta Regression in R. Journal
+ of Statistical Software, 34, 1–24
+
+Zeileis A, Croissant Y (2010). Extended Model Formulas in
+ R: Multiple Parts and Multiple Responses. Journal of Statistical Software,
+ 34, 1–13.
 }
 \author{
 Rodrigo M. R. Medeiros <\email{rodrigo.matheus@live.com}>
