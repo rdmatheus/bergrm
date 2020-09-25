@@ -32,20 +32,23 @@
 #' @title Takeover bids data
 #'
 #' @description Data of the number of bids received by 126 U.S.
-#' firms that were targets of tender offers from 1978 to 1985.
+#' firms that were targets of tender offers from 1978 to 1985, along with some
+#' explanatory variables on the defensive actions taken by management of target
+#' firm, firm-specific characteristics and intervention taken by federal
+#' regulators.
 #'
 #' @format A data frame with 126 observations on the following 12 variables.
 #'
 #' \itemize{
-#' \item \code{numbids}: a vector.
-#' \item \code{leglrest}: a vector.
-#' \item \code{realrest}: a vector.
-#' \item \code{finrest}: a vector.
-#' \item \code{whtknght}: a vector.
-#' \item \code{bidprem}: a vector.
-#' \item \code{insthold}: a vector.
-#' \item \code{size}: a vector.
-#' \item \code{regulatn}: a vector.
+#' \item \code{numbids}: number of bids recevied after the initial bid.
+#' \item \code{leglrest}: indicator variable for legal defence by lawsuit.
+#' \item \code{realrest}: indicator variable for proposed changes in asset structure.
+#' \item \code{finrest}: indicator variable for proposed change in ownership structure.
+#' \item \code{whtknght}: indicator varible for management invitation for friendly third-party bid.
+#' \item \code{bidprem}: bid price divided by price 14 working days before bid.
+#' \item \code{insthold}: percentage of stock held by institutions.
+#' \item \code{size}: total book value of assets in billions of dollars.
+#' \item \code{regulatn}: indicator variable for Department of Justice intervention.
 #' }
 #'
 #' @usage data(bids)
